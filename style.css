@@ -1,0 +1,27 @@
+div {
+  width: 80%;
+  margin: 1rem;
+  text-align: center;
+}
+
+image {
+  width: 80%;
+}
+
+#content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+button :hover {
+  background-color: rgb(204, 161, 168);
+}
+
+button {
+  margin: 1rem;
+  padding: 1rem;
+  width: 10%;
+  border-radius: 1rem;
+  border: none;
+}
