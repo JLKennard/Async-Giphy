@@ -22,14 +22,24 @@ const button = document.querySelector("#button");
 // getImage();
 
 button.addEventListener("click", async () => {
-  console.log(textInput.value);
-  const result = await fetch(
-    `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${textInput.value}&limit=25&offset=0&rating=g&lang=en`
-  );
-  const content = await result.json();
-  const randomGif =
-    content.data[Math.floor(Math.random() * content.data.length)];
-  const gif = randomGif.images.downsized.url;
-  const title = randomGif.title;
-  imgCont.innerHTML = `<img src="${gif}" alt="${title}"></img>`;
+  try {
+    const result = await fetch(
+      `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${textInput.value}&limit=25&offset=0&rating=g&lang=en`
+    );
+
+    if (!result.ok) throw new Error(`${response.status}`);
+
+    const content = await result.json();
+    const randomGif =
+      content.data[Math.floor(Math.random() * content.data.length)];
+    const gif = randomGif.images.downsized.url;
+    const title = randomGif.title;
+    imgCont.innerHTML = `<img src="${gif}" alt="${title}"></img>`;
+  } catch (err) {
+    renderError(`Something went wrong: ${err.message}`);
+  }
 });
+
+const renderError = (msg) => {
+  imgCont.innerHTML = `<p>${msg}</p>`;
+};
